@@ -133,7 +133,7 @@
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "BTT Ender 3"
+#define CUSTOM_MACHINE_NAME "RRE Ender 3 PRO"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -394,7 +394,6 @@
  *    21 : Pt100 with circuit in the Ultimainboard V2.x with 3.3v excitation (STM32 \ LPC176x....)
  *    22 : 100k (hotend) with 4.7k pullup to 3.3V and 220R to analog input (as in GTM32 Pro vB)
  *    23 : 100k (bed) with 4.7k pullup to 3.3v and 220R to analog input (as in GTM32 Pro vB)
- *    30 : Kis3d Silicone heating mat 200W/300W with 6mm precision cast plate (EN AW 5083) NTC100K / B3950 (4.7k pullup)
  *   201 : Pt100 with circuit in Overlord, similar to Ultimainboard V2.x
  *    60 : 100k Maker's Tool Works Kapton Bed Thermistor beta=3950
  *    61 : 100k Formbot / Vivedino 3950 350C thermistor 4.7k pullup
@@ -505,10 +504,9 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-			  
-    #define DEFAULT_Kp  21.73
-    #define DEFAULT_Ki   1.54
-    #define DEFAULT_Kd  76.55
+    #define DEFAULT_Kp  28.97
+    #define DEFAULT_Ki   3.01
+    #define DEFAULT_Kd  69.67
   #endif
 #endif // PIDTEMP
 
@@ -529,7 +527,7 @@
  * heater. If your configuration is significantly different than this and you don't understand
  * the issues involved, don't use bed PID until someone else verifies that your hardware works.
  */
-//#define PIDTEMPBED
+#define PIDTEMPBED
 
 //#define BED_LIMIT_SWITCHING
 
@@ -586,7 +584,7 @@
  */
 #define PREVENT_LENGTHY_EXTRUDE
 //#define EXTRUDE_MAXLENGTH 200
-#define EXTRUDE_MAXLENGTH 12
+#define EXTRUDE_MAXLENGTH 100
 
 //===========================================================================
 //======================== Thermal Runaway Protection =======================
@@ -615,7 +613,7 @@
 
 // @section machine
 
-// Enable one of the options below for CoreXY, CoreXZ, or CoreYZ kinematics,
+// Uncomment one of these options to enable CoreXY, CoreXZ, or CoreYZ kinematics
 // either in the usual order or reversed
 //#define COREXY
 //#define COREXZ
@@ -623,7 +621,6 @@
 //#define COREYX
 //#define COREZX
 //#define COREZY
-//#define MARKFORGED_XY  // MarkForged. See https://reprap.org/forum/read.php?152,504042
 
 //===========================================================================
 //============================== Endstop Settings ===========================
@@ -777,7 +774,8 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 500, 500, 100, 500 }
+//#define DEFAULT_MAX_ACCELERATION      { 500, 500, 100, 500 } //Default
+#define DEFAULT_MAX_ACCELERATION      { 500, 500, 100, 1000 }
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1526,8 +1524,8 @@
 
 // Preheat Constants
 #define PREHEAT_1_LABEL       "PLA"
-#define PREHEAT_1_TEMP_HOTEND 210
-#define PREHEAT_1_TEMP_BED     60
+#define PREHEAT_1_TEMP_HOTEND 200
+#define PREHEAT_1_TEMP_BED     55
 #define PREHEAT_1_FAN_SPEED   255 // Value from 0 to 255
 
 #define PREHEAT_2_LABEL       "ABS"
@@ -1733,7 +1731,7 @@
  *
  * :['JAPANESE', 'WESTERN', 'CYRILLIC']
  */
-//#define DISPLAY_CHARSET_HD44780 WESTERN
+#define DISPLAY_CHARSET_HD44780 WESTERN
 
 /**
  * Info Screen Style (0:Classic, 1:Průša)
@@ -1984,14 +1982,6 @@
 //
 //#define FF_INTERFACEBOARD
 
-//
-// TFT GLCD Panel with Marlin UI
-// Panel connected to main board by SPI or I2C interface.
-// See https://github.com/Serhiy-K/TFTGLCDAdapter
-//
-//#define TFTGLCD_PANEL_SPI
-//#define TFTGLCD_PANEL_I2C  
-
 //=============================================================================
 //=======================   LCD / Controller Selection  =======================
 //=========================      (Graphical LCDs)      ========================
@@ -2195,9 +2185,6 @@
 // Touch-screen LCD for Malyan M200/M300 printers
 //
 //#define MALYAN_LCD
-#if ENABLED(MALYAN_LCD)
-  #define LCD_SERIAL_PORT 1  // Default is 1 for Malyan M200
-#endif					   
 
 //
 // Touch UI for FTDI EVE (FT800/FT810) displays

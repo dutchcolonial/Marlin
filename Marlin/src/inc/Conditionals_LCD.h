@@ -132,6 +132,13 @@
   #define U8GLIB_ST7920
   #define IS_ULTIPANEL 1
 
+#elif ENABLED(CR10_STOCKDISPLAY)
+
+  #define IS_RRD_FG_SC
+  #define BOARD_ST7920_DELAY_1 DELAY_NS(125)
+  #define BOARD_ST7920_DELAY_2 DELAY_NS(125)
+  #define BOARD_ST7920_DELAY_3 DELAY_NS(125)
+
 #elif ENABLED(MKS_12864OLED)
 
   #define IS_RRD_SC 1
@@ -208,7 +215,7 @@
 #elif EITHER(TFTGLCD_PANEL_SPI, TFTGLCD_PANEL_I2C)
 
   #define IS_TFTGLCD_PANEL 1
-  #define IS_ULTIPANEL 1                    // Note that IS_ULTIPANEL leads to HAS_WIRED_LCD
+  #define IS_ULTIPANEL 1                      // Note that IS_ULTIPANEL leads to HAS_WIRED_LCD
 
   #if ENABLED(SDSUPPORT) && DISABLED(LCD_PROGRESS_BAR)
     #define LCD_PROGRESS_BAR
@@ -296,7 +303,7 @@
  */
 
 // Basic Ultipanel-like displays
-#if ANY(ULTIMAKERCONTROLLER, IS_RRD_SC, G3D_PANEL, RIGIDBOT_PANEL, PANEL_ONE, U8GLIB_SH1106)
+#if ANY(ULTIMAKERCONTROLLER, REPRAP_DISCOUNT_SMART_CONTROLLER, G3D_PANEL, RIGIDBOT_PANEL, PANEL_ONE, U8GLIB_SH1106)
   #define IS_ULTIPANEL 1
 #endif
 
@@ -304,6 +311,33 @@
 #if ENABLED(U8GLIB_SH1106_EINSTART)
   #define DOGLCD
   #define IS_ULTIPANEL 1
+#endif
+
+// Compatibility
+#if ENABLED(FSMC_GRAPHICAL_TFT)
+  #define TFT_CLASSIC_UI
+  #define TFT_INTERFACE_FSMC
+  #define TFT_GENERIC
+#elif ENABLED(SPI_GRAPHICAL_TFT)
+  #define TFT_CLASSIC_UI
+  #define TFT_INTERFACE_SPI
+  #define TFT_GENERIC
+#elif EITHER(TFT_320x240, TFT_480x320)
+  #define TFT_COLOR_UI
+  #define TFT_INTERFACE_FSMC
+  #define TFT_GENERIC
+#elif EITHER(TFT_320x240_SPI, TFT_480x320_SPI)
+  #define TFT_COLOR_UI
+  #define TFT_INTERFACE_SPI
+  #define TFT_GENERIC
+#elif ENABLED(TFT_LVGL_UI_FSMC)
+  #define TFT_LVGL_UI
+  #define TFT_INTERFACE_FSMC
+  #define TFT_GENERIC
+#elif ENABLED(TFT_LVGL_UI_SPI)
+  #define TFT_LVGL_UI
+  #define TFT_INTERFACE_SPI
+  #define TFT_GENERIC
 #endif
 
 // TFT Compatibility
@@ -435,8 +469,6 @@
   #define IS_ULTIPANEL 1
 #elif ENABLED(SAV_3DLCD)
   #define SR_LCD_2W_NL    // Non latching 2 wire shift register
-  #define IS_ULTIPANEL 1
-#elif ENABLED(ULTIPANEL)
   #define IS_ULTIPANEL 1
 #endif
 
